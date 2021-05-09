@@ -32,14 +32,15 @@ async function relatedWords() {
     await tab.waitForSelector('.item', { visible: true });
     let words = await tab.$$('.item');
     //you can change the number of keywords you want here but twitter gives an error if they are too many. it works perfectly for 20;
-    for (let i = 0; i < 20; i++) {
+    let n=20;
+    for (let i = 0; i < n; i++) {
         let keyword = await tab.evaluate(function (ele) {
             return ele.textContent;
         }, words[i]);
         let finalKeywords = keyword.split(' ');
         //becoz of this we get just the keywords that are single worded because space between words also gives an error
         if (finalKeywords.length == 1) {
-            if (i == 19) {
+            if (i == n-1) {
                 str += finalKeywords[0] + ')';
             }
             else str += finalKeywords[0] + ' OR ';
@@ -68,7 +69,7 @@ async function login(str, tab) {
     await tab.goto('https://twitter.com/login?lang=en-gb');
     await tab.waitForSelector('.r-30o5oe.r-1niwhzg.r-17gur6a.r-1yadl64.r-deolkf.r-homxoj.r-poiln3.r-7cikom.r-1ny4l3l.r-t60dpp.r-1dz5y72.r-fdjqy7.r-13qz1uu');
     let details = await tab.$$(".r-30o5oe.r-1niwhzg.r-17gur6a.r-1yadl64.r-deolkf.r-homxoj.r-poiln3.r-7cikom.r-1ny4l3l.r-t60dpp.r-1dz5y72.r-fdjqy7.r-13qz1uu");
-    await details[0].type(username);
+    await details[0].type(username);//enter id in place of username if you want to login using that;
     await details[1].type(password);
     await tab.click('.css-18t94o4.css-1dbjc4n.r-urgr8i.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1w2pmg.r-1fz3rvf.r-usiww2.r-1pl7oy7.r-snto4y.r-1ny4l3l.r-1dye5f7.r-o7ynqc.r-6416eg.r-lrvibr');
     await tab.waitForSelector('.r-30o5oe.r-1niwhzg.r-17gur6a.r-1yadl64.r-deolkf.r-homxoj.r-poiln3.r-7cikom.r-1ny4l3l.r-xyw6el.r-ny71av.r-1dz5y72.r-fdjqy7.r-13qz1uu');
@@ -80,8 +81,9 @@ async function login(str, tab) {
     await tab.waitForTimeout(5000);
     await tab.waitForSelector('.css-901oao.r-1awozwy.r-m0bqgq.r-6koalj.r-1qd0xha.r-a023e6.r-16dba41.r-1h0z5md.r-rjixqe.r-bcqeeo.r-o7ynqc.r-clp7b1.r-3s2u2q.r-qvutc0');
     let people = await tab.$$('.css-901oao.r-1awozwy.r-m0bqgq.r-6koalj.r-1qd0xha.r-a023e6.r-16dba41.r-1h0z5md.r-rjixqe.r-bcqeeo.r-o7ynqc.r-clp7b1.r-3s2u2q.r-qvutc0');
-    //multiply the number of people you want to message by 5 and enter that  number in this loop's condition;
-    for (let i = 1; i < 30; i += 5) {
+    //Enter the number of people you want to Contact here;
+    let NumOfPeople=6;
+    for (let i = 1; i < NumOfPeople*5; i += 5) {
         await people[i].click();
         await tab.waitForSelector('.css-1dbjc4n.r-14lw9ot.r-1pp923h.r-1moyyf3.r-oyd9sg');
         await tab.waitForSelector('.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0', { visible: true });
