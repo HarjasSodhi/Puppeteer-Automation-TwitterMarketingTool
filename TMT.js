@@ -122,6 +122,6 @@ async function login(str, tab) {
     
 //JSON file stores the information of people you have contacted so that you are able to contact them again if you wish to;
 //checker file stores the tags of people contacted so that they are not messaged again.
-
+//if you run the code for the same field,clear out the checker.txt file so people can be messaged again. 
 }
 relatedWords();
