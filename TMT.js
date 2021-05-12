@@ -41,11 +41,15 @@ async function relatedWords() {
         //becoz of this we get just the keywords that are single worded because space between words also gives an error
         if (finalKeywords.length == 1) {
             if (i == n-1) {
-                str += finalKeywords[0] + ')';
+                str += " OR "+finalKeywords[0];
             }
-            else str += finalKeywords[0] + ' OR ';
+            else{ 
+                if(i==n-2)str += finalKeywords[0];
+                else str += finalKeywords[0] + ' OR ';
+        }
         }
     }
+    str=str+ ')';
     if (hashtags.length > 0) {
         str += '(';
         for (let j = 0; j < hashtags.length; j++) {
